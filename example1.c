@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include <time.h>
 #include "genann.h"
-
+#define LOOKUP_SIZE 4096
 int main(int argc, char *argv[])
 {
+    double *lookup ;
+    lookup = calloc(LOOKUP_SIZE,sizeof(double));
+
     printf("GENANN example 1.\n");
     printf("Train a small ANN to the XOR function using backpropagation.\n");
 
@@ -20,10 +23,10 @@ int main(int argc, char *argv[])
     /* New network with 2 inputs,
      * 1 hidden layer of 2 neurons,
      * and 1 output. */
-    genann *ann = genann_init(2, 1, 2, 1);
+    genann *ann = genann_init(2, 2, 4, 1);
 
     /* Train on the four labeled data points many times. */
-    for (i = 0; i < 500; ++i) {
+    for (i = 0; i < 300000; ++i) {
         genann_train(ann, input[0], output + 0, 3);
         genann_train(ann, input[1], output + 1, 3);
         genann_train(ann, input[2], output + 2, 3);
